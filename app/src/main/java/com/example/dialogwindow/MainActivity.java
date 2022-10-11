@@ -16,10 +16,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCloseButtonClick(View view){
+        String[] mIngredients = {"Томаты", "Курица","Шампиньоны","Маслины"};
+        final boolean[] mSelectedIngredients = {false, false, false, false};
+
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Выход из приложения")
                 .setIcon(R.drawable.close)
-                .setMessage("Вы уверены, что хотите закрыть приложение?")
+                .setCancelable(false)
+                .setMultiChoiceItems(mIngredients, null, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which, boolean isChecked) {
+                        mSelectedIngredients[which] = isChecked;
+                    }
+                })
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
                             @Override
